@@ -1,53 +1,16 @@
-# JavaScript – videosarjan sisältö
+# React + Vite
 
-1. Videolla kerrottiin esitietovaatimuksista ja ketkä ovat olleet osana tekemässä videosarjaa.
-2. Mikä on JavaScript, sen historiaa ja mitä sillä voidaan tehdä.
-3. Millä tavoin JavaScript eroaa nettisivulla käytettäessä verrattuna serverillä käytettäessä.
-4. Mitä työkaluja kannattaa olla JavaScriptiä kirjottaessa.
-5. Kuinka asennetaan VScode, node ja nvm.
-6. Miten aloitetaan uusi projekti. Eri tapoja kirjoittaa konsoliin.
-7. Ero yhden ja usean rivin kommenteilla. Mitä ja miten kannattaa kommentoida.
-8. Miksi ja milloin kannattaa kommentoida.
-9. Erot var, let ja const muuttujilla. Milloin käyttää kutakin muuttujaa.
-10. Miten eri muuttujat käyttäytyvät koodissa.
-11. Kertoo merkkijonojen yhdistelystä.
-12. Sama kuin edellisessä paitsi, että nyt näytetään, miten merkkijono toimii konsolissa.
-13. Muuttujat lauseitten sisällä.
-14. Melkein sama kuin aikaisempi paitsi, että nyt käytettiin true;.
-15. Kerrottiin eri data tyypeistä.
-16. Kerrottiin lisää data tyypeistä ja näytettiin miten ”typeof” ja ”instanceof” komennot toimivat.
-17. Näytettiin matematiikkaan liittyviä komentoja.
-18. Näytettiin edellisen videon komentojen lisäksi +-/* laskut.
-19. Muutettiin numeroiden data tyyppiä.
-20. Kuinka muutetaan numeroita merkkijonoksi ja toisinpäin.
-21. Miten käytetään try, catch ja finally komentoja.
-22. Näytetään tarkemmin miten edellisen videon komennot toimii.
-23. Päivämääriä ja aikoja.
-24. Samoja kuin edellisessä käytännössä.
-25. Logiikka if lauseissa.
-26. If lauseet käytännössä.
-27. Kerrottiin booleanista, yhdistelmien vertailusta ja Switch (case) käskystä.
-28. Edellinen video käytännössä.
-29. Miten array toimii.
-30. Arrayt käytännössä.
-31. Arrayn sisällä useampi. Datan lisäs arrayhyn.
-32. Sama käytännössä.
-33. Miten topimii push, pop, shift, unshift ja concat.
-34. Kaikki edellisen videon komennot käytännössä.
-35. While, for ja for of loopit.
-36. Loopit käytännössä.
-37. Mitä funktiot on ja miten ne toimii.
-38. Funktio käytänössä.
-39. Nuoli funktion käyttö.
-40. Nuoli funktio käytännössä.
-41. Mikä Json on ja miten se toimii.
-42. Objektit json merkkijonoiksi.
-43. Mitä objektit on ja mitä niistä pitää tietää.
-44. Objektit käytännössä.
-45. Mitä lupaukset on.
-46. Lupaukset käytännössä.
-47. Async ja await käyttö.
-48. Edellinen käytännössä.
-49. Mikä paketti on ja miksi ne on tärkeitä.
-50. Kuinka paketteja käytetään.
-51. Mitä tehdä seuraavaksi.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
