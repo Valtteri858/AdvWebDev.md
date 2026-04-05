@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservations | Booking System</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: "#e10e49",
+                            light: "#ffffff",
+                            dark: "#1e1e1e",
+                            blue: "#263f6a",
+                            green: "#284e36",
+                            orange: "#e37222",
+                            rose: "#c24d52",
+                        }
+                    },
+                    boxShadow: {
+                        soft: "0 8px 40px rgba(0, 0, 0, 0.45)",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-brand-light text-brand-dark">
+
+<header class="sticky top-0 z-40 bg-brand-dark text-white shadow-soft">
+    <div class="mx-auto max-w-7xl px-6">
+        <div class="flex h-16 items-center justify-between">
+
+            <a href="/" class="flex items-center gap-3 flex-1">
+                <img src="logo.svg" class="h-10 w-10">
+                <div>
+                    <span class="block text-sm font-semibold">Booking System</span>
+                    <span class="text-xs text-white/70">Secure resource booking</span>
+                </div>
+            </a>
+
+            <nav class="flex gap-3">
+                <a href="/resources" class="rounded-xl border px-4 py-2 text-sm w-40 text-center">Resources</a>
+                <a href="/reservations" class="rounded-xl border px-4 py-2 text-sm w-40 text-center bg-white/10">Reservations</a>
+                <button onclick="logout()" class="bg-brand-primary px-4 py-2 rounded-xl text-sm w-40">Sign out</button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<main class="mx-auto max-w-7xl px-6 flex-grow">
+
+<section class="py-12">
+    <div class="rounded-3xl bg-white p-8 shadow-soft">
+        <span class="bg-brand-blue/10 px-4 py-1 text-sm text-brand-blue rounded-full">
+            Reservation management
+        </span>
+        <h1 class="mt-4 text-3xl font-semibold">My Reservations</h1>
+    </div>
+</section>
+
+<section class="pb-16">
+<div class="grid gap-8 lg:grid-cols-12">
+
+<div class="lg:col-span-8">
+<div class="bg-white p-8 rounded-3xl shadow-soft">
+
+<h2 class="text-xl font-semibold">Reservation form</h2>
+<div id="message" class="mt-4 text-sm"></div>
+
+<form id="form" class="mt-6 space-y-4">
+<input type="hidden" id="id">
+
+<input class="w-full border p-3 rounded-2xl" placeholder="Resource ID" id="resourceId" type="number" required>
+<label>Start time</label>
+<input class="w-full border p-3 rounded-2xl" id="startTime" type="datetime-local" required>
+<label>End time</label>
+<input class="w-full border p-3 rounded-2xl" id="endTime" type="datetime-local" required>
+<input class="w-full border p-3 rounded-2xl" placeholder="Note" id="note">
+<input class="w-full border p-3 rounded-2xl" value="active" id="status">
+
+<button class="w-full bg-brand-primary text-white p-3 rounded-2xl">Save reservation</button>
+</form>
+</div>
+</div>
+
+<div class="lg:col-span-4">
+<div class="bg-white p-6 rounded-3xl shadow-soft">
+<h3 class="font-semibold">My Reservations</h3>
+<div id="list" class="mt-4 space-y-2"></div>
+</div>
+</div>
+
+</div>
+</section>
+</main>
+
+<script>
+const API = "/api/reservations";
+const list = document.getElementById("list");
+const form = document.getElementById("form");
+const msg = document.getElementById("message");
+
+// JWT token from localStorage (must be set at login)
+const token = localStorage.getItem("jwt");
+if (!token) window.location.href = "/login";
+
+function authFetch(url, options={}) {
+    options.headers = {
+        ...(options.headers||{}),
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+    };
+    return fetch(url, options);
+}
+
+function show(text, err=false){
+    msg.innerText = text;
+    msg.className = err ? "text-red-500" : "text-green-600";
+}
+
+async function load() {
+    const res = await authFetch(API);
+    const json = await res.json();
+    if (!json.ok) return show(json.error, true);
+
+    list.innerHTML = "";
+    json.data.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "border p-3 rounded-xl";
+        div.innerHTML = `
+            <b>ID ${r.id}</b><br>
+            Resource ${r.resource_name}<br>
+            ${new Date(r.start_time).toLocaleString()} - ${new Date(r.end_time).toLocaleString()}<br>
+            Note: ${r.note || ""}<br>
+            Status: ${r.status}<br>
+            <button class="mr-2" onclick="edit(${r.id})">Edit</button>
+            <button onclick="del(${r.id})">Delete</button>
+        `;
+        list.appendChild(div);
+    });
+}
+
+form.onsubmit = async e => {
+    e.preventDefault();
+    const id = document.getElementById("id").value;
+
+    const data = {
+        resourceId: +resourceId.value,
+        startTime: new Date(startTime.value).toISOString(),
+        endTime: new Date(endTime.value).toISOString(),
+        note: note.value,
+        status: status.value
+    };
+
+    let res;
+    if (id) {
+        res = await authFetch(API + "/" + id, {method:"PUT", body: JSON.stringify(data)});
+    } else {
+        res = await authFetch(API, {method:"POST", body: JSON.stringify(data)});
+    }
+
+    if(res.ok){
+        show("Success");
+        form.reset();
+        load();
+    } else {
+        show("Error", true);
+    }
+}
+
+async function edit(id){
+    const res = await authFetch(API + "/" + id);
+    const json = await res.json();
+    if (!json.ok) return show(json.error, true);
+
+    const r = json.data;
+    document.getElementById("id").value = r.id;
+    resourceId.value = r.resource_id;
+    startTime.value = r.start_time.slice(0,16);
+    endTime.value = r.end_time.slice(0,16);
+    note.value = r.note;
+    status.value = r.status;
+}
+
+async function del(id){
+    if(!confirm("Delete?")) return;
+    const res = await authFetch(API + "/" + id, {method:"DELETE"});
+    if(res.ok){
+        show("Deleted");
+        load();
+    } else {
+        const json = await res.json();
+        show(json.error || "Error", true);
+    }
+}
+
+// Load reservations immediately
+load();
+
+// Logout function
+function logout() {
+    localStorage.removeItem("jwt");
+    window.location.href = "/login";
+}
+</script>
+
+</body>
+</html>
