@@ -1,0 +1,247 @@
+/* ================================
+   YLEISET ASETUKSET
+================================ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+    color: #000;
+}
+
+/* ================================
+   HEADER
+================================ */
+header {
+    background: #000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.logo-linkki {
+    color: #fff;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo-linkki:hover {
+    text-decoration: underline;
+}
+
+/* Profiilinappi */
+.profiili-nappi {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.profiili-nappi a {
+    background: #e0e0e0;
+    color: #000;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.profiili-nappi a:hover {
+    background: #d5d5d5;
+}
+
+/* ================================
+   NAVIGAATIO
+================================ */
+.navigaatio-linkit {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+.navigaatio-linkit a {
+    background: #e0e0e0;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.navigaatio-linkit a:hover {
+    background: #d5d5d5;
+    transform: translateY(-2px);
+}
+
+/* ================================
+   OSTOSKORI
+================================ */
+.ostosnappi {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: black;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    z-index: 9999;
+    text-decoration: none;
+}
+
+/* ================================
+   BANNERI
+================================ */
+figure {
+    width: 100%;
+    margin: 0;
+}
+
+figure img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+figure figcaption {
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* ================================
+   PÄÄSISÄLTÖ
+================================ */
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+main h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ================================
+   TUOTEGRID
+================================ */
+.myydyimmat {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.tuotekortti {
+    background: #f3f3f3;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.tuotekortti:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.tuotekortti img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+
+.tuotekortti button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tuotekortti button:hover {
+    background: #444;
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+    background: #000;
+    color: #fff;
+    padding: 40px 20px;
+    margin-top: 40px;
+}
+
+.alatunniste-ruudukko {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+footer a {
+    display: block;
+    color: #e6e6e6;
+    text-decoration: none;
+    margin: 5px 0;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.yritys {
+    text-align: center;
+    margin-top: 20px;
+    color: #c2c2c2;
+    font-size: 14px;
+}
+
+/* ================================
+   MOBIILI
+================================ */
+@media (max-width: 480px) {
+
+    .profiili-nappi {
+        position: static;
+        order: -1;
+    }
+
+    .navigaatio-linkit {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navigaatio-linkit a {
+        padding: 8px 12px;
+        font-size: 16px;
+    }
+}
